@@ -1,4 +1,3 @@
-//components/CategoryCard
 import { View, Text, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { CategoryWithMeta } from "../types/category";
@@ -12,7 +11,7 @@ export function CategoryCard({ category }: Props) {
   const router = useRouter();
 
   const handlePress = () => {
-        router.push(`/categories/${category.slug}`) //this isnt working 
+        router.push(`/categories/${category.slug}`) 
   };
 
   return (

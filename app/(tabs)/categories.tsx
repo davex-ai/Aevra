@@ -10,10 +10,9 @@ import { CategoryRow } from "../../components/CategoryRow";
 import { CATEGORIES } from "../../constants/categoryIcon";
 
 export default function CategoriesScreen({ navigation }: any) {
-  const featured = CATEGORIES.slice(0, 4);
+  const featured = CATEGORIES.slice(0, 6);
   const [loading, setLoading] = useState(true);
-  const [previews, setPreviews] = useState<Record<string, any[]>>({});
-  const navigate = useRouter()
+  const [previews, setPreviews] = useState<Record<string, any[]>>({})
 
   useEffect(() => {
     let mounted = true;
@@ -59,9 +58,8 @@ export default function CategoriesScreen({ navigation }: any) {
         className="flex-1"
       >
         <ScrollView>
-          {/* Featured Categories */}
           <FlatList
-            data={CATEGORIES.slice(0,6)}
+            data={featured}
             keyExtractor={(item) => item.slug}
             numColumns={2}
             scrollEnabled={false} 

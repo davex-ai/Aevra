@@ -8,22 +8,15 @@ interface Props {
   products: Product[];
   onViewAll: () => void;
 }
-      const router = useRouter();
-
-      const handleProductPress = (product: Product) => {
-  router.push({ 
-    pathname: "/products/[id]", 
-    params: { id: String(product.id) } 
-  });
-};
 
 export function CategoryRow({ title, products, onViewAll }: Props) {
+    
   return (
     <View className="mb-6">
       <View className="flex-row justify-between items-center mb-2 px-4">
         <Text className="text-white font-semibold text-base">{title}</Text>
         <Pressable onPress={onViewAll}>
-          <Text className="text-gray-300 text-sm">View All</Text>
+          <Text className="text-gray-300 text-sm">View All</Text>//make this doesnt lead to categories/[categories']
         </Pressable>
       </View>
 
