@@ -4,10 +4,10 @@ import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getProductsByCategory } from "../../../api/api";
-import { CategoryCard } from "../../../components/CategoryCard";
-import { CategoryRow } from "../../../components/CategoryRow";
-import { CATEGORIES } from "../../../constants/categoryIcon";
+import { getProductsByCategory } from "../../api/api";
+import { CategoryCard } from "../../components/CategoryCard";
+import { CategoryRow } from "../../components/CategoryRow";
+import { CATEGORIES } from "../../constants/categoryIcon";
 
 export default function CategoriesScreen({ navigation }: any) {
   const featured = CATEGORIES.slice(0, 4);
@@ -64,11 +64,11 @@ export default function CategoriesScreen({ navigation }: any) {
             data={CATEGORIES.slice(0,6)}
             keyExtractor={(item) => item.slug}
             numColumns={2}
-            scrollEnabled={false} // important since inside ScrollView
+            scrollEnabled={false} 
             contentContainerStyle={{ paddingHorizontal: 8, marginTop: 16 }}
             renderItem={({ item }) => (
               <CategoryCard
-                category={item} //should lead to a page with all the products under this category categories/[categorie''.tsx
+                category={item} 
               />
             )}
           />

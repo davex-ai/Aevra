@@ -1,10 +1,10 @@
-// app/(tabs)/categories/[category].tsx
-import { useLocalSearchParams } from "expo-router";
+// app/categories/[category].tsx
+import { Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList } from "react-native";
+import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getProductsByCategory } from "../../../api/api";
-import ProductCard from "../../../components/ProductCard";
+import { getProductsByCategory } from "../../api/api";
+import ProductCard from "../../components/ProductCard";
 
 export default function CategoryPage() {
   const { category } = useLocalSearchParams<{ category: string }>();
@@ -27,12 +27,19 @@ export default function CategoryPage() {
         </SafeAreaView>;
 
   return (
+    <SafeAreaView>
+
+    <Stack.Screen options={{headerShown: false} }/>
+     <Text className="text-[#b8b7b7] text-xl font-bold capitalize ml-5">{category}</Text>
     <FlatList
       data={products}
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => <ProductCard product={item} onPress={() => {}} onWishlist={() => {}} />}
       numColumns={2}
-      contentContainerStyle={{ padding: 16 }}
+      contentContainerStyle={{ padding: 16,}}
+      columnWrapperStyle={{ gap: 10, marginBottom: 12 }}
     />
+      </SafeAreaView>
+    
   );
 }
