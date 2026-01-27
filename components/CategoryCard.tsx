@@ -11,7 +11,7 @@ export function CategoryCard({ category }: Props) {
   const router = useRouter();
 
   const handlePress = () => {
-        router.push(`./${category.slug}`)
+        router.push(`./categories/${category.slug}`)
   };
 
   return (

@@ -69,7 +69,7 @@ export default function CategoriesScreen({ navigation }: any) {
             contentContainerStyle={{ paddingHorizontal: 8, marginTop: 16 }}
             renderItem={({ item }) => (
               <CategoryCard
-                category={item} //should lead to a page with all the products under this category
+                category={item} //should lead to a page with all the products under this category categories/[categorie''.tsx
               />
             )}
           />
