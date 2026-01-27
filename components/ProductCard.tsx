@@ -1,6 +1,8 @@
+//component/productCards
 import { View, Text, Image, TouchableOpacity, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Product } from "../types/product";
+import { useRouter } from "expo-router";
 
 const { width } = Dimensions.get("window");
 const CARD_WIDTH = (width - 48) / 2;
@@ -16,9 +18,8 @@ export default function ProductCard({
   onPress,
   onWishlist,
 }: Props) {
-  const discountedPrice =
-    product.price -
-    (product.price * (product.discountPercentage ?? 0)) / 100;
+  const discountedPrice = product.price - (product.price * (product.discountPercentage ?? 0)) / 100;
+  const router = useRouter()
 
   return (
     <TouchableOpacity

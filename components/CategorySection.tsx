@@ -1,7 +1,9 @@
+//components/CategorySection.tsx
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ProductCard from "./ProductCard";
 import { Product } from "../types/product";
+import { useRouter } from "expo-router";
 
 interface Props {
   category: string;
@@ -19,6 +21,16 @@ export default function CategorySection({
   onProductPress,
   onWishlist,
 }: Props) {
+
+      const router = useRouter();
+
+      const handleProductPress = (product: Product) => {
+  router.push({ 
+    pathname: "/products/[id]", 
+    params: { id: String(product.id) } 
+  });
+};
+
   return (
     <View className="mb-6 mx-auto">
       <View className="flex-row justify-between px-4 mb-3 ">
@@ -34,12 +46,12 @@ export default function CategorySection({
   keyExtractor={(item) => item.id.toString()}
   numColumns={2}
   scrollEnabled={false}
-  columnWrapperStyle={{ gap: 20, marginBottom: 16 }} // <- Add vertical spacing here
+  columnWrapperStyle={{ gap: 20, marginBottom: 16 }}
   contentContainerStyle={{ paddingHorizontal: 16 }}
   renderItem={({ item }) => (
     <ProductCard
   product={item}
-  onPress={onProductPress}
+  onPress={handleProductPress} 
   onWishlist={onWishlist}
 />
 
