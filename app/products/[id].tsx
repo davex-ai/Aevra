@@ -1,8 +1,9 @@
 import { View, Text, Image, ScrollView } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import {  Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { getProduct } from '../../api/api';
 import { Product } from '../../types/product';
+import { Ionicons } from "@expo/vector-icons";
 
 export default function ProductDetail() {
   const params = useLocalSearchParams<{ id: string }>();
@@ -15,11 +16,24 @@ export default function ProductDetail() {
     }
   }, [id]);
 
+  const getStarColor = (rating: number) => {
+  if (rating >= 4.5) return "#16a34a"; // green-600
+  if (rating >= 3) return "#f59e0b";   // amber-500
+  return "#dc2626";                    // red-600
+};
+
+
   if (!product) return <Text className="text-center mt-10">Loading...</Text>;
 
   const discountedPrice = product.price - (product.price * product.discountPercentage) / 100;
 
   return ( 
+    <>
+     <Stack.Screen
+        options={{
+          headerShown: false
+        }}
+      />
     <ScrollView className="p-4 bg-white">
       {/* Main Image */}
       <Image
@@ -57,18 +71,40 @@ export default function ProductDetail() {
       <Text className="mt-4 text-gray-700">{product.description}</Text>
 
       {/* Reviews */}
-      {product.reviews?.length > 0 && (//possibly undefined
-        <View className="mt-6">
-          <Text className="text-lg font-bold mb-2">Reviews</Text>
-          {product.reviews.map((review, idx) => (//possibly undefined
-            <View key={idx} className="mb-2 p-2 border rounded-lg border-gray-200">
-              <Text className="font-semibold">{review.reviewerName}</Text>//doent exist on type string
-              <Text className="text-yellow-500">Rating: {review.rating}⭐</Text>//doent exist on type string
-              <Text className="text-gray-600">{review.comment}</Text>//doent exist on type string
-            </View>
-          ))}
+      {Array.isArray(product.reviews) && product.reviews.length > 0 && (
+  <View className="mt-6">
+    <Text className="text-lg font-bold mb-3">Reviews</Text>
+
+    {product.reviews.map((review, idx) => (
+      <View
+        key={idx}
+        className="mb-3 p-3 rounded-xl border border-gray-200 bg-gray-50"
+      >
+        {/* Reviewer */}
+        <Text className="font-semibold text-gray-800">
+          {review.reviewerName}
+        </Text>
+
+        {/* Rating */}
+        <View className="flex-row items-center mt-1">
+          <Ionicons
+            name="star"
+            size={16}
+            color={getStarColor(review.rating)}
+          />
+          <Text className="ml-1 text-sm text-gray-700">
+            {review.rating.toFixed(1)}
+          </Text>
         </View>
-      )}
+
+        {/* Comment */}
+        <Text className="mt-2 text-gray-600 text-sm">
+          {review.comment}
+        </Text>
+      </View>
+    ))}
+  </View>
+)}
 
       {/* Shipping & Warranty */}
       <View className="mt-6">
@@ -80,5 +116,6 @@ export default function ProductDetail() {
         )}
       </View>
     </ScrollView>
+    </>
   );
 }
