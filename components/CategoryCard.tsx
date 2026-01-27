@@ -11,11 +11,7 @@ export function CategoryCard({ category }: Props) {
   const router = useRouter();
 
   const handlePress = () => {
-    // navigate to dynamic route /products/[category]
-    router.push({
-      pathname: "/products/[category]",
-      params: { category: category.slug },
-    });
+        router.push(`./${category.slug}`)
   };
 
   return (

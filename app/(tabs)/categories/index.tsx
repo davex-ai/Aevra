@@ -1,10 +1,11 @@
+//app/(tabs)/categories/index.tsx
 import { ActivityIndicator, FlatListComponent, ScrollView, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
-import { getProductsByCategory } from "../../api/api";
-import { CATEGORIES } from "../../constants/categoryIcon";
-import { CategoryCard } from "../../components/CategoryCard";
-import { CategoryRow } from "../../components/CategoryRow";
+import { getProductsByCategory } from "../../../api/api";
+import { CATEGORIES } from "../../../constants/categoryIcon";
+import { CategoryCard } from "../../../components/CategoryCard";
+import { CategoryRow } from "../../../components/CategoryRow";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList } from "react-native";
 import {  useRouter } from "expo-router";
@@ -68,7 +69,7 @@ export default function CategoriesScreen({ navigation }: any) {
             contentContainerStyle={{ paddingHorizontal: 8, marginTop: 16 }}
             renderItem={({ item }) => (
               <CategoryCard
-                category={item}
+                category={item} //should lead to a page with all the products under this category
               />
             )}
           />

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { getProduct } from '../../api/api';
 import { Product } from '../../types/product';
 import { Ionicons } from "@expo/vector-icons";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ProductDetail() {
   const params = useLocalSearchParams<{ id: string }>();
@@ -34,7 +35,10 @@ export default function ProductDetail() {
           headerShown: false
         }}
       />
-    <ScrollView className="p-4 bg-white" >
+      <SafeAreaView>
+
+      
+    <ScrollView className="p-4 bg-white" showsVerticalScrollIndicator={false}  >
       {/* Main Image */}
       <Image
         source={{ uri: product.thumbnail ?? product.images?.[0] }}
@@ -116,6 +120,7 @@ export default function ProductDetail() {
         )}
       </View>
     </ScrollView>
+    </SafeAreaView>
     </>
   );
 }
