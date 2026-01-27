@@ -47,35 +47,36 @@ export default function HomeScreen() {
   return (
     <SafeAreaView className="flex-1">
       <View className="flex-row px-10 justify-between items-center">
-        <MaterialCommunityIcons name={ 'account-circle' } size={24} color="black" />
+        <MaterialCommunityIcons name={'account-circle'} size={24} color="black" />
         <Feather name="heart" size={24} color="black" />
       </View>
       <ScrollView>
         <View>
-          <Text className="font-bold text-xl ml-10">Curated. Crafted. Exceptional.</Text>
-          <Text className="text-sm text-[#9b9999] ml-10">Everything here earns its place.</Text>
+          <Text className="font-bold text-xl ml-6 mt-4">Curated. Crafted. Exceptional.</Text>
+          <Text className="text-sm text-[#9b9999] ml-6">Everything here earns its place.</Text>
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{width: 380}}>
-          <View className="gap-5 flex-row items-center mx-auto my-5">
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ width: 380 }}>
+          <View className="gap-5 flex-row items-center mx-auto my-1">
 
-<Image
-  source={require("../../assets/images/header.png")}
-  className="w-60 h-40 rounded-lg" 
-  resizeMode="cover"
-/>
-      <Image source={require('../../assets/images/features 01.png')} />
-      <Image  source={require('../../assets/images/features 02.png')} />
+            <Image
+              source={require("../../assets/images/header.png")}
+              className="w-60 h-40 rounded-lg"
+              resizeMode="cover"
+            />
+            <Image source={require('../../assets/images/features 01.png')} />
+            <Image source={require('../../assets/images/features 02.png')} />
           </View>
         </ScrollView>
+        <Text className="font-bold text-xl ml-4">Featured Products.</Text>
 
         {categoriesData.map((cat) => (
           <CategorySection
             key={cat.name}
             category={cat.name}
             products={cat.products}
-            onSeeAll={() => {}}
-            onProductPress={() => {}}
-            onWishlist={() => {}}
+            onSeeAll={() => { }}
+            onProductPress={() => { }}
+            onWishlist={() => { }}
           />
         ))}
       </ScrollView>
