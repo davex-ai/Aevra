@@ -69,11 +69,6 @@ export default function CategoriesScreen({ navigation }: any) {
             renderItem={({ item }) => (
               <CategoryCard
                 category={item}
-                onPress={() =>
-                  navigation.navigate("CategoryProducts", {
-                    category: item.slug,
-                  })
-                }
               />
             )}
           />

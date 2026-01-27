@@ -49,7 +49,7 @@ export default function CategorySection({
   columnWrapperStyle={{ gap: 20, marginBottom: 16 }}
   contentContainerStyle={{ paddingHorizontal: 16 }}
   renderItem={({ item }) => (
-    <ProductCard
+    <ProductCard 
   product={item}
   onPress={handleProductPress} 
   onWishlist={onWishlist}

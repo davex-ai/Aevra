@@ -34,7 +34,7 @@ export default function ProductDetail() {
           headerShown: false
         }}
       />
-    <ScrollView className="p-4 bg-white">
+    <ScrollView className="p-4 bg-white" >
       {/* Main Image */}
       <Image
         source={{ uri: product.thumbnail ?? product.images?.[0] }}
