@@ -1,12 +1,21 @@
 import { View, Text, FlatList, Pressable } from "react-native";
 import { Product } from "../types/product";
-import { ProductPreviewCard } from "./ProductPreview";
+import { ProductPreview } from "./ProductPreview";
+import { useRouter } from "expo-router";
 
 interface Props {
   title: string;
   products: Product[];
   onViewAll: () => void;
 }
+      const router = useRouter();
+
+      const handleProductPress = (product: Product) => {
+  router.push({ 
+    pathname: "/products/[id]", 
+    params: { id: String(product.id) } 
+  });
+};
 
 export function CategoryRow({ title, products, onViewAll }: Props) {
   return (
@@ -24,7 +33,7 @@ export function CategoryRow({ title, products, onViewAll }: Props) {
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={{ paddingHorizontal: 16 }}
-        renderItem={({ item }) => <ProductPreviewCard product={item} />}
+        renderItem={({ item }) => <ProductPreview product={item} />}
       />
     </View>
   );

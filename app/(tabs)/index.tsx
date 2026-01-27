@@ -37,7 +37,9 @@ export default function HomeScreen() {
   }, []);
 
   if (loading) {
-    return <ActivityIndicator />;
+    return  <SafeAreaView className="flex-1 bg-black items-center justify-center">
+      <ActivityIndicator size="large" color="white" />
+    </SafeAreaView>
   }
 
   if (error) {

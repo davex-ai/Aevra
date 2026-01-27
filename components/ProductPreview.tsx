@@ -1,7 +1,7 @@
 import { View, Text, Image } from "react-native";
 import { Product } from "../types/product";
 
-export function ProductPreviewCard({ product }: { product: Product }) {
+export function ProductPreview ({ product }: { product: Product }) {
   return (
     <View className="w-32 mr-3 bg-white/5 rounded-xl p-2">
       <Image

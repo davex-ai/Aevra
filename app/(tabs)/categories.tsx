@@ -1,112 +1,104 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { ActivityIndicator, FlatListComponent, ScrollView, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { useEffect, useState } from "react";
+import { getProductsByCategory } from "../../api/api";
+import { CATEGORIES } from "../../constants/categoryIcon";
+import { CategoryCard } from "../../components/CategoryCard";
+import { CategoryRow } from "../../components/CategoryRow";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { FlatList } from "react-native";
+import {  useRouter } from "expo-router";
 
-import { Collapsible } from '@/components/ui/collapsible';
-import { ExternalLink } from '@/components/external-link';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Fonts } from '@/constants/theme';
+export default function CategoriesScreen({ navigation }: any) {
+  const featured = CATEGORIES.slice(0, 4);
+  const [loading, setLoading] = useState(true);
+  const [previews, setPreviews] = useState<Record<string, any[]>>({});
+  const navigate = useRouter()
 
-export default function TabTwoScreen() {
+  useEffect(() => {
+    let mounted = true;
+
+    const load = async () => {
+      const results: Record<string, any[]> = {};
+
+      await Promise.all(
+        CATEGORIES.map(async (cat) => {
+          const res = await getProductsByCategory(cat.slug, 6);
+          if (res.data) {
+            results[cat.slug] = res.data.products;
+          }
+        })
+      );
+
+      if (mounted) {
+        setPreviews(results);
+        setLoading(false);
+      }
+    };
+
+    load();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+
+  if (loading) {
+    return (
+      <SafeAreaView className="flex-1 bg-black items-center justify-center">
+        <ActivityIndicator size="large" color="white" />
+      </SafeAreaView>
+    );
+  }
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}>
-          Explore
-        </ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image
-          source={require('@/assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <SafeAreaView className="flex-1 bg-black">
+      <LinearGradient
+        colors={["#0f0f0f", "#1a1a1a"]}
+        className="flex-1"
+      >
+        <ScrollView>
+          {/* Featured Categories */}
+          <FlatList
+            data={CATEGORIES.slice(0,6)}
+            keyExtractor={(item) => item.slug}
+            numColumns={2}
+            scrollEnabled={false} // important since inside ScrollView
+            contentContainerStyle={{ paddingHorizontal: 8, marginTop: 16 }}
+            renderItem={({ item }) => (
+              <CategoryCard
+                category={item}
+                onPress={() =>
+                  navigation.navigate("CategoryProducts", {
+                    category: item.slug,
+                  })
+                }
+              />
+            )}
+          />
+
+
+          {/* All Categories */}
+          <View className="mt-8">
+            {CATEGORIES.map(
+              (cat) =>
+                previews[cat.slug] && (
+                  <CategoryRow
+                    key={cat.slug}
+                    title={cat.name}
+                    products={previews[cat.slug]}
+                    onViewAll={() =>
+                      navigation.navigate("CategoryProducts", {
+                        category: cat.slug,
+                      })
+                    }
+                  />
+                )
+            )}
+          </View>
+        </ScrollView>
+      </LinearGradient>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-});
