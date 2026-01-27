@@ -10,6 +10,7 @@ interface Props {
   onProductPress: (product: Product) => void;
   onWishlist: (product: Product) => void;
 }
+ 
 
 export default function CategorySection({
   category,
@@ -29,18 +30,22 @@ export default function CategorySection({
       </View>
 
       <FlatList
-        data={products.slice(0, 4)}
-        keyExtractor={(item) => item.id.toString()}
-        numColumns={2}
-        scrollEnabled={false}
-        renderItem={({ item }) => (
-          <ProductCard
-            product={item}
-            onPress={onProductPress}
-            onWishlist={onWishlist}
-          />
-        )}
-      />
+  data={products.slice(0, 4)}
+  keyExtractor={(item) => item.id.toString()}
+  numColumns={2}
+  scrollEnabled={false}
+  columnWrapperStyle={{ gap: 20, marginBottom: 16 }} // <- Add vertical spacing here
+  contentContainerStyle={{ paddingHorizontal: 16 }}
+  renderItem={({ item }) => (
+    <ProductCard
+  product={item}
+  onPress={onProductPress}
+  onWishlist={onWishlist}
+/>
+
+  )}
+/>
+
     </View>
   );
 }

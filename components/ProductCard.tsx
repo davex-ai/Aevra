@@ -23,7 +23,7 @@ export default function ProductCard({
   return (
     <TouchableOpacity
       onPress={() => onPress(product)}
-      className="bg-white rounded-lg mb-4 border border-gray-100"
+      className="bg-white rounded-lg border border-gray-100"
       style={{ width: CARD_WIDTH }}
       activeOpacity={0.7}
     >

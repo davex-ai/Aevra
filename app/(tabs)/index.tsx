@@ -55,7 +55,7 @@ export default function HomeScreen() {
           <Text className="font-bold text-xl ml-10">Curated. Crafted. Exceptional.</Text>
           <Text className="text-sm text-[#9b9999] ml-10">Everything here earns its place.</Text>
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} >
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{width: 380}}>
           <View className="gap-5 flex-row items-center mx-auto my-5">
 
 <Image
