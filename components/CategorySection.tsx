@@ -20,7 +20,7 @@ export default function CategorySection({
 }: Props) {
   return (
     <View className="mb-6 mx-auto">
-      <View className="flex-row justify-between px-4 mb-3">
+      <View className="flex-row justify-between px-4 mb-3 ">
         <Text className="font-bold capitalize">{category}</Text>
 
         <TouchableOpacity onPress={() => onSeeAll(category)}>

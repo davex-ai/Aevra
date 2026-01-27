@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { ScrollView, ActivityIndicator, View, Text } from "react-native";
+import { ScrollView, ActivityIndicator, View, Text, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getProductsByCategory } from "../../api/api";
 import { Product } from "../../types/product";
 import CategorySection from "../../components/CategorySection";
+import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 
 interface CategoryData {
   name: string;
@@ -45,7 +46,24 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView className="flex-1">
+      <View className="flex-row px-10 justify-between items-center">
+        <MaterialCommunityIcons name={ 'account-circle' } size={24} color="black" />
+        <Feather name="heart" size={24} color="black" />
+      </View>
       <ScrollView>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} >
+          <View className="gap-5 flex-row items-center mx-auto my-5">
+
+<Image
+  source={require("../../assets/images/header.png")}
+  className="w-60 h-40 rounded-lg" 
+  resizeMode="cover"
+/>
+      <Image source={require('../../assets/images/features 01.png')} />
+      <Image  source={require('../../assets/images/features 02.png')} />
+          </View>
+        </ScrollView>
+
         {categoriesData.map((cat) => (
           <CategorySection
             key={cat.name}
