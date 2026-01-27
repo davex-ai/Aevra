@@ -1,10 +1,10 @@
 // app/(tabs)/categories/[category].tsx
-import { View, Text, FlatList, ActivityIndicator } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
+import { ActivityIndicator, FlatList } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { getProductsByCategory } from "../../../api/api";
 import ProductCard from "../../../components/ProductCard";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CategoryPage() {
   const { category } = useLocalSearchParams<{ category: string }>();

@@ -1,14 +1,13 @@
 //app/(tabs)/categories/index.tsx
-import { ActivityIndicator, FlatListComponent, ScrollView, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
+import { ActivityIndicator, FlatList, ScrollView, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { getProductsByCategory } from "../../../api/api";
-import { CATEGORIES } from "../../../constants/categoryIcon";
 import { CategoryCard } from "../../../components/CategoryCard";
 import { CategoryRow } from "../../../components/CategoryRow";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { FlatList } from "react-native";
-import {  useRouter } from "expo-router";
+import { CATEGORIES } from "../../../constants/categoryIcon";
 
 export default function CategoriesScreen({ navigation }: any) {
   const featured = CATEGORIES.slice(0, 4);
