@@ -28,59 +28,37 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons 
-              name={focused ? 'home' : 'home-outline'} 
-              size={size} 
-              color={color} 
-            />
+            <Ionicons name={focused ? 'home' : 'home-outline'} size={size} color={color} />
           ),
         }}
       />
-      
+
       <Tabs.Screen
         name="categories"
         options={{
           title: 'Categories',
           tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons 
-              name={focused ? 'grid' : 'grid-outline'} 
-              size={size} 
-              color={color} 
-            />
+            <Ionicons name={focused ? 'grid' : 'grid-outline'} size={size} color={color} />
           ),
         }}
       />
-      
+
       <Tabs.Screen
         name="wishlist"
         options={{
           title: 'Wishlist',
           tabBarIcon: ({ color, size, focused }) => (
-            <View>
-              <Ionicons 
-                name={focused ? 'heart' : 'heart-outline'} 
-                size={size} 
-                color={color} 
-              />
-              {/* Badge - uncomment when implementing wishlist count */}
-              {/* <View className="absolute -top-1 -right-2 bg-red-500 w-4 h-4 rounded-full items-center justify-center">
-                <Text className="text-white text-xs font-bold">2</Text>
-              </View> */}
-            </View>
+            <Ionicons name={focused ? 'heart' : 'heart-outline'} size={size} color={color} />
           ),
         }}
       />
-      
+
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
           tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons 
-              name={focused ? 'person' : 'person-outline'} 
-              size={size} 
-              color={color} 
-            />
+            <Ionicons name={focused ? 'person' : 'person-outline'} size={size} color={color} />
           ),
         }}
       />

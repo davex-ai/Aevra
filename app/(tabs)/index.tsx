@@ -44,6 +44,7 @@ export default function HomeScreen() {
     return <Text>{error}</Text>;
   }
 
+  
   return (
     <SafeAreaView className="flex-1">
       <View className="flex-row px-10 justify-between items-center">
