@@ -51,6 +51,10 @@ export default function HomeScreen() {
         <Feather name="heart" size={24} color="black" />
       </View>
       <ScrollView>
+        <View>
+          <Text className="font-bold text-xl ml-10">Curated. Crafted. Exceptional.</Text>
+          <Text className="text-sm text-[#9b9999] ml-10">Everything here earns its place.</Text>
+        </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} >
           <View className="gap-5 flex-row items-center mx-auto my-5">
 
