@@ -1,17 +1,19 @@
-import { useRouter } from "expo-router";
 import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "expo-router";
 
 export function useRequireAuth() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const router = useRouter();
 
-  const requireAuth = (action: () => void) => {
+  const requireAuth = (cb: () => void) => {
+    if (loading) return;
+
     if (!user) {
-      router.push("/login"); // or /register
+      router.push("/login");
       return;
     }
 
-    action();
+    cb();
   };
 
   return { requireAuth };

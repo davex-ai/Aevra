@@ -1,3 +1,4 @@
+// lib/auth.ts
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 
@@ -16,4 +17,3 @@ const login = async (email: string, password: string) => {
 
   return userCredential.user;
 };
-// lib/auth.ts
