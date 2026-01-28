@@ -3,7 +3,7 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "@/lib/firestore"; // we’ll add this
+import { db } from "@/lib/firebase";
 import { useRouter } from "expo-router";
 
 export default function RegisterScreen() {
