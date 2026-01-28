@@ -63,7 +63,7 @@ export default function ProductCard({
         onPress={() => onWishlist(product)}
         className="absolute top-2 right-2 bg-white p-2 rounded-full"
       >
-        <Ionicons name="heart-outline" size={18} />
+        <Ionicons name="heart-outline" size={18} /> //doesnt re-route to register if user isnt logged in or should we make that a componenet since its will be used more than once
       </TouchableOpacity>
     </TouchableOpacity>
   );

@@ -51,7 +51,7 @@ export default function HomeScreen() {
     <SafeAreaView className="flex-1">
       <View className="flex-row px-10 justify-between items-center">
         <MaterialCommunityIcons name={'account-circle'} size={24} color="black" />
-        <Feather name="heart" size={24} color="black" />
+        <Feather name="heart" size={24} color="black" />//doesnt re-route to register if user isnt logged in or should we make that a componenet since its will be used more than once
       </View>
       <ScrollView>
         <View>
