@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Product } from "../types/product";
 import { useRouter } from "expo-router";
 import { useRequireAuth } from "@/hooks/useRequireAuth";
+import { useWishlist } from "@/context/WishlistContext";
 
 const { width } = Dimensions.get("window");
 const CARD_WIDTH = (width - 48) / 2;
@@ -21,10 +22,18 @@ export default function ProductCard({
   const discountedPrice = product.price - (product.price * (product.discountPercentage ?? 0)) / 100;
   const router = useRouter()
   const { requireAuth } = useRequireAuth();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const inWishlist = isInWishlist(product.id);
 
    const handlePress = () => {
     // Navigate to /product/[id]
     router.push(`/products/${product.id}`);
+  };
+
+    const toggleWishlist = () => {
+    requireAuth(() => {
+      inWishlist ? removeFromWishlist(product.id) : addToWishlist(product);
+    });
   };
 
   return (
@@ -62,11 +71,15 @@ export default function ProductCard({
         </View>
       </View>
 
-      <TouchableOpacity
-        onPress={() => requireAuth(() => onWishlist(product))}
+       <TouchableOpacity
+        onPress={toggleWishlist}
         className="absolute top-2 right-2 bg-white p-2 rounded-full"
       >
-        <Ionicons name="heart-outline" size={18} /> 
+        <Ionicons
+          name={inWishlist ? "heart" : "heart-outline"}
+          size={18}
+          color={inWishlist ? "red" : "gray"}
+        />
       </TouchableOpacity>
     </TouchableOpacity>
   );
