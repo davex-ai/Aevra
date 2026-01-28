@@ -1,8 +1,9 @@
 //component/productCards
-import { View, Text, Image, TouchableOpacity, Dimensions } from "react-native";
+import { View, Text, Image, TouchableOpacity, Dimensions, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Product } from "../types/product";
 import { useRouter } from "expo-router";
+import { useRequireAuth } from "@/hooks/useRequireAuth";
 
 const { width } = Dimensions.get("window");
 const CARD_WIDTH = (width - 48) / 2;
@@ -19,6 +20,8 @@ export default function ProductCard({
 }: Props) {
   const discountedPrice = product.price - (product.price * (product.discountPercentage ?? 0)) / 100;
   const router = useRouter()
+  const { requireAuth } = useRequireAuth();
+
    const handlePress = () => {
     // Navigate to /product/[id]
     router.push(`/products/${product.id}`);
@@ -60,10 +63,10 @@ export default function ProductCard({
       </View>
 
       <TouchableOpacity
-        onPress={() => onWishlist(product)}
+        onPress={() => requireAuth(() => onWishlist(product))}
         className="absolute top-2 right-2 bg-white p-2 rounded-full"
       >
-        <Ionicons name="heart-outline" size={18} /> //doesnt re-route to register if user isnt logged in or should we make that a componenet since its will be used more than once
+        <Ionicons name="heart-outline" size={18} /> 
       </TouchableOpacity>
     </TouchableOpacity>
   );

@@ -5,6 +5,9 @@ import { getProductsByCategory } from "../../api/api";
 import { Product } from "../../types/product";
 import CategorySection from "../../components/CategorySection";
 import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
+import { useRequireAuth } from "@/hooks/useRequireAuth";
+import { useRouter } from "expo-router";
+
 
 interface CategoryData {
   name: string;
@@ -15,6 +18,8 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [categoriesData, setCategoriesData] = useState<CategoryData[]>([]);
+  const { requireAuth } = useRequireAuth();
+  const router = useRouter()
 
   const FEATURED = ["smartphones", "laptops", "fragrances"];
 
@@ -51,11 +56,16 @@ export default function HomeScreen() {
     <SafeAreaView className="flex-1">
       <View className="flex-row px-10 justify-between items-center">
         <MaterialCommunityIcons name={'account-circle'} size={24} color="black" />
-        <Feather name="heart" size={24} color="black" />//doesnt re-route to register if user isnt logged in or should we make that a componenet since its will be used more than once
+        <Feather name="heart" size={24} color="black" onPress={() =>
+    requireAuth(() => {
+      // navigate to wishlist
+      router.push("/wishlist");
+    })
+  } />
       </View>
       <ScrollView>
         <View>
-          <Text className="font-bold text-xl ml-6 mt-4">Curated. Crafted. Exceptional.</Text>
+          <Text className="font-bold text-xl ml-6 mt-4">Curatehd. Crafted. Exceptional.</Text>
           <Text className="text-sm text-[#9b9999] ml-6">Everything here earns its place.</Text>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ width: 380 }}>
