@@ -15,15 +15,18 @@ interface Props {
 
 export default function ProductCard({
   product,
-  onPress,
   onWishlist,
 }: Props) {
   const discountedPrice = product.price - (product.price * (product.discountPercentage ?? 0)) / 100;
   const router = useRouter()
+   const handlePress = () => {
+    // Navigate to /product/[id]
+    router.push(`/products/${product.id}`);
+  };
 
   return (
     <TouchableOpacity
-      onPress={() => onPress(product)}
+      onPress={handlePress}
       className="bg-white rounded-lg border border-gray-100"
       style={{ width: CARD_WIDTH }}
       activeOpacity={0.7}

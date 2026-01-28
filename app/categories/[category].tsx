@@ -34,7 +34,7 @@ export default function CategoryPage() {
     <FlatList
       data={products}
       keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => <ProductCard product={item} onPress={() => {}} onWishlist={() => {}} />}
+      renderItem={({ item }) => <ProductCard product={item} onPress={() => {}} onWishlist={() => {}} />}//doesnt navigate to product/[id]
       numColumns={2}
       contentContainerStyle={{ padding: 16,}}
       columnWrapperStyle={{ gap: 10, marginBottom: 12 }}

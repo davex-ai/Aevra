@@ -23,7 +23,7 @@ async function fetchData<T>(endpoint: string): Promise<ApiResponse<T>> {
 export const getCategories = () =>
   fetchData<Category[]>("/products/categories");
 
-export const getProductsByCategory = (category: string, limit = 4) =>
+export const getProductsByCategory = (category: string, limit: number) =>
   fetchData<{ products: Product[] }>(
     `/products/category/${category}?limit=${limit}`
   );

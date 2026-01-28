@@ -23,7 +23,7 @@ export default function HomeScreen() {
       try {
         const results = await Promise.all(
           FEATURED.map(async (cat) => {
-            const res = await getProductsByCategory(cat);
+            const res = await getProductsByCategory(cat, 4);
             return { name: cat, products: res.data?.products ?? [] };
           })
         );

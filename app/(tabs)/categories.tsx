@@ -81,11 +81,7 @@ export default function CategoriesScreen({ navigation }: any) {
                     key={cat.slug}
                     title={cat.name}
                     products={previews[cat.slug]}
-                    onViewAll={() =>
-                      navigation.navigate("CategoryProducts", {
-                        category: cat.slug,
-                      })
-                    }
+                    category={cat.slug}
                   />
                 )
             )}

@@ -2,21 +2,25 @@ import { View, Text, FlatList, Pressable } from "react-native";
 import { Product } from "../types/product";
 import { ProductPreview } from "./ProductPreview";
 import { useRouter } from "expo-router";
+import { CategoryWithMeta } from "@/types/category";
 
 interface Props {
   title: string;
   products: Product[];
-  onViewAll: () => void;
+  category: string
 }
 
-export function CategoryRow({ title, products, onViewAll }: Props) {
-    
+export function CategoryRow({ title, products, category }: Props) {
+    const router = useRouter();
+    const handleViewAll = () => {
+    router.push(`/categories/${category}`);
+  };
   return (
     <View className="mb-6">
       <View className="flex-row justify-between items-center mb-2 px-4">
         <Text className="text-white font-semibold text-base">{title}</Text>
-        <Pressable onPress={onViewAll}>
-          <Text className="text-gray-300 text-sm">View All</Text>//make this doesnt lead to categories/[categories']
+        <Pressable onPress={handleViewAll}>
+          <Text className="text-gray-300 text-sm">View All</Text>
         </Pressable>
       </View>
 
