@@ -90,7 +90,7 @@ export default function SearchScreen() {
   };
 
   const handleProductPress = (product: any) => {
-    router.push(`/product/${product.id}`);
+    router.push(`./product/${product.id}`);
   };
 
   const handleWishlist = (product: any) => {
