@@ -16,3 +16,4 @@ const login = async (email: string, password: string) => {
 
   return userCredential.user;
 };
+// lib/auth.ts
