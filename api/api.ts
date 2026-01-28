@@ -33,6 +33,33 @@ export const getProducts = (limit = 20, skip = 0) =>
 
 export const getProduct = (id: number) =>
   fetchData<Product>(`/products/${id}`);
+// api/api.ts
+export async function searchProducts({
+  q,
+  sortBy,
+  order,
+  select,
+  limit = 10,
+  skip = 0,
+}: {
+  q: string;
+  sortBy?: string;
+  order?: 'asc' | 'desc';
+  select?: string[]; // array of field names
+  limit?: number;
+  skip?: number;
+}) {
+  const params = new URLSearchParams();
 
-export const searchProducts = (query: string) =>
-  fetchData<{ products: Product[] }>(`/products/search?q=${query}`);
+  params.append('q', q);
+  if (sortBy) params.append('sortBy', sortBy);
+  if (order) params.append('order', order);
+  if (select && select.length > 0) params.append('select', select.join(','));
+  params.append('limit', limit.toString());
+  params.append('skip', skip.toString());
+
+  const url = `https://dummyjson.com/products/search?${params.toString()}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data;
+}
