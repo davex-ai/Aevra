@@ -55,13 +55,8 @@ export default function HomeScreen() {
   return (
     <SafeAreaView className="flex-1">
       <View className="flex-row px-10 justify-between items-center">
-        <MaterialCommunityIcons name={'account-circle'} size={24} color="black" />
-        <Feather name="heart" size={24} color="black" onPress={() =>
-    requireAuth(() => {
-      // navigate to wishlist
-      router.push("/wishlist");
-    })
-  } />
+        <MaterialCommunityIcons name={'account-circle'} size={24} color="black" onPress={() => requireAuth(() => { router.push("/wishlist"); }) } />
+        <Feather name="heart" size={24} color="black" onPress={() => requireAuth(() => { router.push("/wishlist"); }) } /> 
       </View>
       <ScrollView>
         <View>

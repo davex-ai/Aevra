@@ -45,6 +45,7 @@ export default function RegisterScreen() {
 
   return (
     <View className="flex-1 bg-black px-6 justify-center">
+      <Text className="text-white text-2xl text-center bottom-24 font-bold">Welcome To Aevra</Text>
       <Text className="text-white text-2xl font-bold mb-6">
         Create account
       </Text>

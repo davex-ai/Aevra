@@ -43,6 +43,12 @@ export default function LoginScreen() {
           Login
         </Text>
       </Pressable>
+        <View className="text-white mt-4  flex-row">
+          <Text className="text-white flex-row">Don't have an account ? </Text>
+           <Pressable onPress={() => router.push("/register")}>
+            <Text  className="text-gray-400">Register</Text>
+          </Pressable>
+        </View>
     </View>
   );
 }
