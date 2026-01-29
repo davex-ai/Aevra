@@ -12,14 +12,10 @@ export default function CheckoutScreen() {
       Alert.alert("Cart Empty", "Add some products before placing an order.");
       return;
     }
-
-    // Simple notification
     Alert.alert(
       "Order Placed!",
       "Check your profile for order status."
     );
-
-    // Optional: redirect to profile after order
     router.push("/profile");
   };
 
