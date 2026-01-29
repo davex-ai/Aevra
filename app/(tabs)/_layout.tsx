@@ -52,17 +52,17 @@ export default function TabLayout() {
         }}
       />
 
-      {/* <Tabs.Screen
-        name="wishlist"
+      <Tabs.Screen
+        name="cart"
         options={{
-          title: 'Wishlist',
+          title: 'Cart',
           tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons name={focused ? 'heart' : 'heart-outline'} size={size} color={color} />
+            <Ionicons name={focused ? 'cart' : 'cart-outline'} size={size} color={color} />
           ),
         }}
-      />
+      />can i badge badge tabar whe cart count is more than  0 
 
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
