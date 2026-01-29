@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
-import { ScrollView, ActivityIndicator, View, Text, Image } from "react-native";
+import { ScrollView, ActivityIndicator, View, Text, Image, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getProductsByCategory } from "../../api/api";
 import { Product } from "../../types/product";
 import CategorySection from "../../components/CategorySection";
-import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Feather, Ionicons } from '@expo/vector-icons';
+import { useRequireAuth } from "@/hooks/useRequireAuth";
+import { useRouter } from "expo-router";
+import { useWishlist } from "@/context/WishlistContext";
+import { useCart } from "@/context/CartContext";
 
 interface CategoryData {
   name: string;
@@ -15,8 +19,12 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [categoriesData, setCategoriesData] = useState<CategoryData[]>([]);
+  const { requireAuth } = useRequireAuth();
+  const router = useRouter();
 
   const FEATURED = ["smartphones", "laptops", "fragrances"];
+  const { wishlist } = useWishlist();
+  const { getCartCount } = useCart();
 
   useEffect(() => {
     (async () => {
@@ -36,31 +44,65 @@ export default function HomeScreen() {
     })();
   }, []);
 
+  const handleProductPress = (product: Product) => {
+    console.log("Navigating to product:", product.id);
+    router.push(`/products/${product.id}`);
+  };
+
+  const handleWishlist = (product: Product) => {
+  };
+
+  const handleSeeAll = (category: string) => {
+    console.log("See all:", category);
+  };
+
   if (loading) {
-    return  <SafeAreaView className="flex-1 bg-black items-center justify-center">
-      <ActivityIndicator size="large" color="white" />
-    </SafeAreaView>
+    return (
+      <SafeAreaView className="flex-1 bg-black items-center justify-center">
+        <ActivityIndicator size="large" color="white" />
+      </SafeAreaView>
+    );
   }
 
   if (error) {
-    return <Text>{error}</Text>;
+    return (
+      <SafeAreaView className="flex-1 items-center justify-center">
+        <Text className="text-red-500">{error}</Text>
+      </SafeAreaView>
+    );
   }
 
-  
+  const cartCount = getCartCount();
+
   return (
-    <SafeAreaView className="flex-1">
-      <View className="flex-row px-10 justify-between items-center">
-        <MaterialCommunityIcons name={'account-circle'} size={24} color="black" />
-        <Feather name="heart" size={24} color="black" />
+    <SafeAreaView className="flex-1">      
+      <View className="flex-row px-6 py-3 justify-between items-center border-b border-gray-200 ">
+        <View className="flex-row items-center gap-4">
+          <Pressable onPress={() => router.push('/profile')} className="relative">
+          <MaterialCommunityIcons name="account-circle" size={28} color="black" />
+          </Pressable>
+        </View>
+
+        <View className="flex-row items-center gap-4">
+          <Pressable onPress={() => router.push('/wishlist')} className="relative">
+            <Feather name="heart" size={24} color="black" />
+            {wishlist.length > 0 && (
+              <View className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-red-500 items-center justify-center">
+                <Text className="text-white text-xs font-bold">{wishlist.length}</Text>
+              </View>
+            )}
+          </Pressable>        
+        </View>
       </View>
+
       <ScrollView>
         <View>
           <Text className="font-bold text-xl ml-6 mt-4">Curated. Crafted. Exceptional.</Text>
           <Text className="text-sm text-[#9b9999] ml-6">Everything here earns its place.</Text>
         </View>
+
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ width: 380 }}>
           <View className="gap-5 flex-row items-center mx-auto my-1">
-
             <Image
               source={require("../../assets/images/header.png")}
               className="w-60 h-40 rounded-lg"
@@ -70,6 +112,7 @@ export default function HomeScreen() {
             <Image source={require('../../assets/images/features 02.png')} />
           </View>
         </ScrollView>
+
         <Text className="font-bold text-xl ml-4">Featured Products.</Text>
 
         {categoriesData.map((cat) => (
@@ -77,9 +120,9 @@ export default function HomeScreen() {
             key={cat.name}
             category={cat.name}
             products={cat.products}
-            onSeeAll={() => { }}
-            onProductPress={() => { }}
-            onWishlist={() => { }}
+            onSeeAll={() => handleSeeAll(cat.name)}
+            onProductPress={handleProductPress}
+            onWishlist={handleWishlist}
           />
         ))}
       </ScrollView>

@@ -1,4 +1,3 @@
-// components/ProductPreview.tsx
 import { View, Text, Image, Pressable } from "react-native";
 import { Product } from "../types/product";
 import { useRouter } from "expo-router";

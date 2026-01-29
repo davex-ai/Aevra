@@ -1,4 +1,4 @@
-// app/search.tsx
+
 import { useState, useEffect, useCallback } from "react";
 import {
   View,
@@ -27,11 +27,10 @@ export default function SearchScreen() {
 
   const limit = 10;
 
-  // 🔄 Debounced search function
   const debouncedSearch = useCallback(
     debounce((q: string, sort: string | null, ord: "asc" | "desc") => {
       if (q.trim()) {
-        performSearch(q, sort, ord, true); // reset pagination
+        performSearch(q, sort, ord, true)
       } else {
         setProducts([]);
         setHasMore(false);
@@ -40,7 +39,6 @@ export default function SearchScreen() {
     []
   );
 
-  // 🔍 Main search logic
   const performSearch = async (
     q: string,
     sort: string | null,
@@ -77,12 +75,10 @@ export default function SearchScreen() {
     }
   };
 
-  // 🎯 Trigger search when query/sort/order changes
   useEffect(() => {
     debouncedSearch(query, sortBy, order);
   }, [query, sortBy, order, debouncedSearch]);
 
-  // 📥 Load more on scroll
   const loadMore = () => {
     if (hasMore && !loading && query.trim()) {
       performSearch(query, sortBy, order, false);
@@ -90,7 +86,7 @@ export default function SearchScreen() {
   };
 
   const handleProductPress = (product: any) => {
-    router.push(`/product/${product.id}`);
+    router.push(`./product/${product.id}`);
   };
 
   const handleWishlist = (product: any) => {
@@ -98,27 +94,24 @@ export default function SearchScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-[#1E1E1E] p-4">
-      {/* Search Input */}
+    <SafeAreaView className="flex-1 bg-[#1E1E1E] p-4">      
       <View className="flex-row items-center mb-6">
         <TextInput
           className="flex-1 bg-[#2D2D2D] text-white rounded-lg px-4 py-3.5"
           placeholder="Search products..."
           placeholderTextColor="#9CA3AF"
           value={query}
-          onChangeText={setQuery} // ✅ Now live!
+          onChangeText={setQuery} 
           selectionColor="#FFFFFF"
-        />
-        {/* Optional: keep "Search" button for accessibility */}
+        />        
         <TouchableOpacity
-          onPress={() => debouncedSearch.flush()} // force immediate search
+          onPress={() => debouncedSearch.flush()} 
           className="ml-3 bg-blue-600 px-5 py-3.5 rounded-lg"
         >
           <Text className="text-white font-semibold">Go</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Sort Controls */}
+      
       <View className="mb-5">
         <Text className="text-[#9CA3AF] text-sm mb-2">Sort by</Text>
         <ScrollView
@@ -175,8 +168,7 @@ export default function SearchScreen() {
           </View>
         </View>
       </View>
-
-      {/* Results */}
+      
       {products.length === 0 && !loading && query.trim() === "" ? (
         <Text className="text-[#9CA3AF] text-center mt-12">
           Enter a search term to find products.
