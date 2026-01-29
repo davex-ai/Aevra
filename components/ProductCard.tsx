@@ -52,7 +52,7 @@ export default function ProductCard({ product }: Props) {
       <View className="relative">
         <Image
           source={{ uri: product.thumbnail ?? product.images?.[0] }}
-          className="w-full h-40 rounded-t-lg bg-gray-100"
+          className="w-full h-40 rounded-t-lg bg-gray-100 "
           resizeMode="cover"
         />
 

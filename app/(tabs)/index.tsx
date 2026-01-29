@@ -80,7 +80,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView className="flex-1">
       {/* Header with Cart and Wishlist */}
-      <View className="flex-row px-6 py-3 justify-between items-center border-b border-gray-200 bg-white">
+      <View className="flex-row px-6 py-3 justify-between items-center border-b border-gray-200 ">
         <View className="flex-row items-center gap-4">
           <MaterialCommunityIcons
             name="account-circle"
@@ -99,17 +99,7 @@ export default function HomeScreen() {
                 <Text className="text-white text-xs font-bold">{wishlist.length}</Text>
               </View>
             )}
-          </Pressable>
-
-          {/* Cart Icon */}
-          <Pressable onPress={() => router.push('/cart')} className="relative">
-            <Ionicons name="cart-outline" size={24} color="black" />
-            {cartCount > 0 && (
-              <View className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-black items-center justify-center">
-                <Text className="text-white text-xs font-bold">{cartCount}</Text>
-              </View>
-            )}
-          </Pressable>
+          </Pressable>        
         </View>
       </View>
 

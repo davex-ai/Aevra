@@ -21,8 +21,7 @@ export default function CartScreen() {
 
   const handleCheckout = () => {
     requireAuth(() => {
-      // Navigate to checkout when implemented
-      console.log("Checkout");
+      router.push('/checkout')
     });
   };
 
@@ -158,7 +157,7 @@ export default function CartScreen() {
                 <Text className="text-dark font-bold text-base mb-2">
                   ${discountedPrice.toFixed(2)}
                   {item.product.discountPercentage > 0 && (
-                    <Text className="text-gray-400 text-sm line-through ml-2">
+                    <Text className="text-gray-400 text-sm line-through ">
                       ${item.product.price.toFixed(2)}
                     </Text>
                   )}

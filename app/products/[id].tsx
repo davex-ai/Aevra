@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { getProduct } from '../../api/api';
@@ -27,9 +27,9 @@ export default function ProductDetail() {
   }, [id]);
 
   const getStarColor = (rating: number) => {
-    if (rating >= 4.5) return "#16a34a"; // green-600
-    if (rating >= 3) return "#f59e0b";   // amber-500
-    return "#dc2626";                    // red-600
+    if (rating >= 4.5) return "#16a34a";
+    if (rating >= 3) return "#f59e0b";
+    return "#dc2626";
   };
 
   const handleAddToCart = () => {
@@ -60,6 +60,7 @@ export default function ProductDetail() {
   const discountedPrice = product.price - (product.price * (product.discountPercentage || 0)) / 100;
   const inWishlist = isInWishlist(product.id);
   const inCart = isInCart(product.id);
+  const stock = product.stock ?? 0;
 
   return (
     <>
@@ -140,12 +141,12 @@ export default function ProductDetail() {
             {/* Stock & Availability */}
             <View className="flex-row items-center mt-3">
               <Ionicons 
-                name={product.stock > 0 ? "checkmark-circle" : "close-circle"} //product.stock is possibly null
+                name={stock > 0 ? "checkmark-circle" : "close-circle"}
                 size={20} 
-                color={product.stock > 0 ? "#16a34a" : "#DC2626"} 
+                color={stock > 0 ? "#16a34a" : "#DC2626"} 
               />
               <Text className="ml-2 text-gray-600">
-                {product.availabilityStatus} • {product.stock} in stock
+                {product.availabilityStatus} • {stock} in stock
               </Text>
             </View>
 
@@ -182,7 +183,7 @@ export default function ProductDetail() {
                 </Text>
 
                 <TouchableOpacity
-                  onPress={() => setQuantity(Math.min(product.stock, quantity + 1))}
+                  onPress={() => setQuantity(Math.min(stock, quantity + 1))}
                   className="px-4 py-3"
                   activeOpacity={0.7}
                 >

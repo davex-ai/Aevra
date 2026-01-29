@@ -21,7 +21,9 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-const CART_STORAGE_KEY = "@cart";
+
+const CART_STORAGE_KEY = (uid: string) => `@cart:${uid}`;
+
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const { user } = useAuth();
@@ -30,39 +32,33 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   // Load cart from AsyncStorage on mount or when user changes
   useEffect(() => {
-    (async () => {
-      if (!user) {
-        setCart([]);
-        setIsLoaded(true);
-        await AsyncStorage.removeItem(CART_STORAGE_KEY);
-        return;
-      }
+  (async () => {
+    if (!user) {
+      setCart([]);
+      setIsLoaded(true);
+      return;
+    }
 
-      try {
-        const json = await AsyncStorage.getItem(CART_STORAGE_KEY);
-        if (json) {
-          setCart(JSON.parse(json));
-        }
-      } catch (err) {
-        console.error("Failed to load cart", err);
-      } finally {
-        setIsLoaded(true);
-      }
-    })();
-  }, [user]);
+    try {
+      const json = await AsyncStorage.getItem(CART_STORAGE_KEY(user.uid));
+      if (json) setCart(JSON.parse(json));
+    } catch (err) {
+      console.error("Failed to load cart", err);
+    } finally {
+      setIsLoaded(true);
+    }
+  })();
+}, [user]);
 
-  // Save cart to AsyncStorage whenever it changes
-  useEffect(() => {
-    if (!isLoaded) return; // Don't save until initial load is complete
+useEffect(() => {
+  if (!isLoaded || !user) return;
 
-    (async () => {
-      try {
-        await AsyncStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
-      } catch (err) {
-        console.error("Failed to save cart", err);
-      }
-    })();
-  }, [cart, isLoaded]);
+  AsyncStorage.setItem(
+    CART_STORAGE_KEY(user.uid),
+    JSON.stringify(cart)
+  ).catch(console.error);
+}, [cart, isLoaded, user]);
+
 
   const addToCart = (product: Product, quantity: number = 1) => {
     setCart((prev) => {
