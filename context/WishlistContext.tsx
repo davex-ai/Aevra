@@ -35,7 +35,7 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
         console.error("Failed to load wishlist", err);
       }
     })();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     (async () => {
