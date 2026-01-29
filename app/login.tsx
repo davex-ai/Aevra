@@ -16,7 +16,6 @@ export default function LoginScreen() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // Firebase auth state listener in AuthContext will handle redirect
       router.replace("/(tabs)");
     } catch (err: any) {
       console.error(err);

@@ -24,13 +24,10 @@ export default function RegisterScreen() {
     try {
       const { email, password, fullName, phone, address } = form;
 
-      // 1. Create and sign in user
       const cred = await createUserWithEmailAndPassword(auth, email, password);
 
-      // 2. Update profile
       await updateProfile(cred.user, { displayName: fullName });
 
-      // 3. Save to Firestore
       await setDoc(doc(db, "users", cred.user.uid), {
         fullName,
         email,
@@ -39,7 +36,6 @@ export default function RegisterScreen() {
         createdAt: new Date(),
       });
 
-      // 4. Redirect to home screen after successful registration
       router.replace("/(tabs)");
       
     } catch (err: any) {
