@@ -26,22 +26,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return unsub;
   }, []);
 
-  // Auto-redirect based on auth state
   useEffect(() => {
     if (loading) return;
 
     const inAuthGroup = segments[0] === "(tabs)";
-    
-    // Auth screens that logged-in users shouldn't access
     const authScreens = ["/login", "/register"];
     const isOnAuthScreen = authScreens.includes(pathname);
 
     if (!user && inAuthGroup) {
-      // User is not signed in but trying to access protected routes
       router.replace("/login");
     } else if (user && isOnAuthScreen) {
-      // User is signed in but on auth screens (login/register)
-      // Only redirect if they're specifically on login/register, not other routes
       router.replace("/(tabs)");
     }
   }, [user, segments, loading, pathname]);

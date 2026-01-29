@@ -65,8 +65,7 @@ export default function ProductDetail() {
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
-      <SafeAreaView className="flex-1 bg-white">
-        {/* Custom Header */}
+      <SafeAreaView className="flex-1 bg-white">        
         <View className="flex-row items-center justify-between px-4 py-3 border-b border-gray-200">
           <TouchableOpacity onPress={() => router.back()} activeOpacity={0.7}>
             <Ionicons name="arrow-back" size={24} color="#1E1E1E" />
@@ -87,24 +86,21 @@ export default function ProductDetail() {
           className="flex-1" 
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 100 }}
-        >
-          {/* Main Image */}
+        >          
           <Image
             source={{ uri: product.thumbnail ?? product.images?.[0] }}
             className="w-full h-80 bg-gray-100"
             resizeMode="cover"
           />
 
-          <View className="p-4">
-            {/* Title & Brand */}
+          <View className="p-4">            
             <Text className="text-2xl font-bold text-dark">{product.title}</Text>
             {product.brand && (
               <Text className="text-gray-500 mt-1 text-base">
                 Brand: {product.brand}
               </Text>
             )}
-
-            {/* Category & Tags */}
+            
             <Text className="text-gray-400 mt-2 capitalize">
               Category: {product.category}
             </Text>
@@ -113,8 +109,7 @@ export default function ProductDetail() {
                 Tags: {product.tags.join(', ')}
               </Text>
             )}
-
-            {/* Pricing */}
+            
             <View className="mt-4 bg-gray-50 p-4 rounded-lg">
               <View className="flex-row items-center justify-between">
                 <View>
@@ -137,8 +132,7 @@ export default function ProductDetail() {
                 )}
               </View>
             </View>
-
-            {/* Stock & Availability */}
+            
             <View className="flex-row items-center mt-3">
               <Ionicons 
                 name={stock > 0 ? "checkmark-circle" : "close-circle"}
@@ -149,8 +143,7 @@ export default function ProductDetail() {
                 {product.availabilityStatus} • {stock} in stock
               </Text>
             </View>
-
-            {/* Rating */}
+            
             {product.rating && (
               <View className="flex-row items-center mt-2">
                 <Ionicons name="star" size={20} color="#FFA500" />
@@ -159,14 +152,12 @@ export default function ProductDetail() {
                 </Text>
               </View>
             )}
-
-            {/* Description */}
+            
             <View className="mt-6">
               <Text className="text-lg font-bold text-dark mb-2">Description</Text>
               <Text className="text-gray-700 leading-6">{product.description}</Text>
             </View>
-
-            {/* Quantity Selector */}
+            
             <View className="mt-6">
               <Text className="text-lg font-bold text-dark mb-3">Quantity</Text>
               <View className="flex-row items-center border border-gray-300 rounded-lg self-start">
@@ -191,8 +182,7 @@ export default function ProductDetail() {
                 </TouchableOpacity>
               </View>
             </View>
-
-            {/* Reviews */}
+            
             {Array.isArray(product.reviews) && product.reviews.length > 0 && (
               <View className="mt-6">
                 <Text className="text-lg font-bold mb-3">Reviews</Text>
@@ -224,8 +214,7 @@ export default function ProductDetail() {
                 ))}
               </View>
             )}
-
-            {/* Shipping & Warranty */}
+            
             <View className="mt-6 bg-gray-50 p-4 rounded-lg">
               {product.shippingInformation && (
                 <View className="flex-row items-start mb-2">
@@ -246,8 +235,7 @@ export default function ProductDetail() {
             </View>
           </View>
         </ScrollView>
-
-        {/* Add to Cart Footer */}
+        
         <View className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
           <View className="flex-row items-center gap-3">
             <View className="flex-1">

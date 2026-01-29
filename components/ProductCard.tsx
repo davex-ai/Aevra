@@ -47,16 +47,14 @@ export default function ProductCard({ product }: Props) {
       className="bg-white rounded-lg border border-gray-100 mb-4"
       style={{ width: CARD_WIDTH }}
       activeOpacity={0.7}
-    >
-      {/* Product Image */}
+    >      
       <View className="relative">
         <Image
           source={{ uri: product.thumbnail ?? product.images?.[0] }}
           className="w-full h-40 rounded-t-lg bg-gray-100 "
           resizeMode="cover"
         />
-
-        {/* Discount Badge */}
+        
         {(product.discountPercentage ?? 0) > 0 && (
           <View className="absolute top-2 left-2 bg-red-500 px-2 py-1 rounded">
             <Text className="text-white text-xs font-bold">
@@ -64,8 +62,7 @@ export default function ProductCard({ product }: Props) {
             </Text>
           </View>
         )}
-
-        {/* Wishlist Button */}
+        
         <TouchableOpacity
           onPress={toggleWishlist}
           className="absolute top-2 right-2 bg-white/90 p-2 rounded-full shadow"
@@ -78,8 +75,7 @@ export default function ProductCard({ product }: Props) {
           />
         </TouchableOpacity>
       </View>
-
-      {/* Product Info */}
+      
       <View className="p-3">
         <Text className="text-dark font-semibold text-sm mb-1" numberOfLines={2}>
           {product.title}
@@ -100,8 +96,7 @@ export default function ProductCard({ product }: Props) {
               </Text>
             )}
           </View>
-
-          {/* Cart Button */}
+          
           <TouchableOpacity
             onPress={handleAddToCart}
             className={`p-2 rounded-full ${
@@ -116,8 +111,7 @@ export default function ProductCard({ product }: Props) {
             />
           </TouchableOpacity>
         </View>
-
-        {/* Rating */}
+        
         {product.rating && (
           <View className="flex-row items-center mt-2">
             <Ionicons name="star" size={12} color="#FFA500" />

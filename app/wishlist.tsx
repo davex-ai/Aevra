@@ -15,11 +15,10 @@ export default function WishlistScreen() {
     requireAuth(() => {});
   }, []);
 
-  // optionally render loading until auth check
   const { loading } = useAuth();
   
   if (loading) return null;
-  
+
   if (wishlist.length === 0) {
     return (
       <SafeAreaView className="flex-1 items-center justify-center bg-white">
