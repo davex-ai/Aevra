@@ -2,6 +2,7 @@
 import React, { createContext, useState, useContext, ReactNode, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Product } from "../types/product";
+import { useAuth } from "./AuthContext";
 
 interface WishlistContextType {
   wishlist: Product[];
@@ -15,10 +16,16 @@ const WishlistContext = createContext<WishlistContextType | undefined>(undefined
 const WISHLIST_STORAGE_KEY = "@wishlist";
 
 export const WishlistProvider = ({ children }: { children: ReactNode }) => {
+    const { user } = useAuth();
   const [wishlist, setWishlist] = useState<Product[]>([]);
 
   useEffect(() => {
     (async () => {
+          if (!user) {
+        setWishlist([]);
+        await AsyncStorage.removeItem(WISHLIST_STORAGE_KEY);
+        return;
+      }
       try {
         const json = await AsyncStorage.getItem(WISHLIST_STORAGE_KEY);
         if (json) {
