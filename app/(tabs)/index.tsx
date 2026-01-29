@@ -50,13 +50,10 @@ export default function HomeScreen() {
   };
 
   const handleWishlist = (product: Product) => {
-    // Handled in ProductCard component now
   };
 
   const handleSeeAll = (category: string) => {
     console.log("See all:", category);
-    // Navigate to category page when you create it
-    // router.push(`/category/${category}`);
   };
 
   if (loading) {
@@ -78,20 +75,18 @@ export default function HomeScreen() {
   const cartCount = getCartCount();
 
   return (
-    <SafeAreaView className="flex-1">
-      {/* Header with Cart and Wishlist */}
+    <SafeAreaView className="flex-1">      
       <View className="flex-row px-6 py-3 justify-between items-center border-b border-gray-200 ">
         <View className="flex-row items-center gap-4">
           <MaterialCommunityIcons
             name="account-circle"
             size={28}
             color="black"
-            // onPress={() => requireAuth(() => router.push("/profile"))}
+      
           />
         </View>
 
         <View className="flex-row items-center gap-4">
-          {/* Wishlist Icon */}
           <Pressable onPress={() => router.push('/wishlist')} className="relative">
             <Feather name="heart" size={24} color="black" />
             {wishlist.length > 0 && (
