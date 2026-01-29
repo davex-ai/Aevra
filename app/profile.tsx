@@ -1,12 +1,41 @@
-import React from "react";
-import { View, Text, Pressable, Alert, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, Pressable, Alert, ScrollView, TextInput } from "react-native";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+
+interface Order {
+  id: string;
+  products: { id: number; title: string; quantity: number; price: number }[];
+  total: number;
+  status: string;
+  createdAt: any;
+}
 
 export default function ProfileScreen() {
   const { user } = useAuth();
   const router = useRouter();
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [editingName, setEditingName] = useState(false);
+  const [nameInput, setNameInput] = useState(user?.displayName || "");
+
+  useEffect(() => {
+    if (!user) return;
+
+    const fetchOrders = async () => {
+      const q = query(
+        collection(db, "orders", user.uid, "userOrders"),
+        orderBy("createdAt", "desc")
+      );
+      const snapshot = await getDocs(q);
+      const fetched: Order[] = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Order));
+      setOrders(fetched);
+    };
+
+    fetchOrders();
+  }, [user]);
 
   const handleLogout = async () => {
     try {
@@ -22,17 +51,26 @@ export default function ProfileScreen() {
     <ScrollView className="flex-1 bg-black px-6 pt-8">
       <Text className="text-white text-2xl font-bold mb-6">Your Profile</Text>
 
-      {/* User Info */}
+      {/* Editable Name */}
       <View className="bg-white/10 p-4 rounded-xl mb-4 flex-row justify-between items-center">
-        <View>
+        <View className="flex-1 mr-2">
           <Text className="text-white font-semibold">Name</Text>
-          <Text className="text-gray-300">{user?.displayName || "N/A"}</Text>
+          {editingName ? (
+            <TextInput
+              className="text-white border-b border-gray-400"
+              value={nameInput}
+              onChangeText={setNameInput}
+              onBlur={() => setEditingName(false)}
+            />
+          ) : (
+            <Text className="text-gray-300">{nameInput}</Text>
+          )}
         </View>
         <MaterialIcons
           name="edit"
           size={24}
           color="white"
-          onPress={() => Alert.alert("Edit Name", "Edit feature coming soon!")}
+          onPress={() => setEditingName(!editingName)}
         />
       </View>
 
@@ -45,14 +83,33 @@ export default function ProfileScreen() {
           name="edit"
           size={24}
           color="white"
-          onPress={() => Alert.alert("Edit Email", "Edit feature coming soon!")}
+          onPress={() => Alert.alert("Edit Email", "Feature coming soon")}
         />
       </View>
 
-      {/* Order Status */}
-      <View className="bg-white/10 p-4 rounded-xl mb-4">
-        <Text className="text-white font-semibold mb-2">Order Status</Text>
-        <Text className="text-gray-300">You have no active orders.</Text>
+      {/* Orders */}
+      <View className="mb-4">
+        <Text className="text-white font-semibold text-lg mb-2">Orders</Text>
+        {orders.length === 0 ? (
+          <Text className="text-gray-300">No orders yet.</Text>
+        ) : (
+          orders.map((order) => (
+            <View
+              key={order.id}
+              className="bg-white/10 p-4 rounded-xl mb-3"
+            >
+              <Text className="text-white font-bold">
+                Order ID: {order.id}
+              </Text>
+              <Text className="text-gray-300">
+                Status: {order.status}
+              </Text>
+              <Text className="text-gray-300">
+                Total: ${order.total.toFixed(2)}
+              </Text>
+            </View>
+          ))
+        )}
       </View>
 
       {/* Logout Button */}

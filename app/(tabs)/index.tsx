@@ -78,12 +78,9 @@ export default function HomeScreen() {
     <SafeAreaView className="flex-1">      
       <View className="flex-row px-6 py-3 justify-between items-center border-b border-gray-200 ">
         <View className="flex-row items-center gap-4">
-          <MaterialCommunityIcons
-            name="account-circle"
-            size={28}
-            color="black"
-      
-          />
+          <Pressable onPress={() => router.push('/profile')} className="relative">
+          <MaterialCommunityIcons name="account-circle" size={28} color="black" />
+          </Pressable>
         </View>
 
         <View className="flex-row items-center gap-4">
