@@ -25,7 +25,6 @@ export default function CartScreen() {
     });
   };
 
-  // Not logged in state
   if (!user) {
     return (
       <SafeAreaView className="flex-1 bg-white">
@@ -53,7 +52,6 @@ export default function CartScreen() {
     );
   }
 
-  // Empty cart state
   if (cart.length === 0) {
     return (
       <SafeAreaView className="flex-1 bg-white">
@@ -86,10 +84,8 @@ export default function CartScreen() {
     );
   }
 
-  // Cart with items
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      {/* Header */}
+    <SafeAreaView className="flex-1 bg-white">      
       <View className="bg-white border-b border-gray-200 px-4 py-4">
         <View className="flex-row items-center justify-between">
           <Text className="text-dark font-bold text-2xl">Cart</Text>
@@ -113,8 +109,7 @@ export default function CartScreen() {
           const itemTotal = discountedPrice * item.quantity;
 
           return (
-            <View className="bg-white rounded-lg mb-4 flex-row border border-gray-200 overflow-hidden">
-              {/* Product Image */}
+            <View className="bg-white rounded-lg mb-4 flex-row border border-gray-200 overflow-hidden">              
               <Pressable
                 onPress={() => router.push(`/products/${item.product.id}`)}
               >
@@ -124,8 +119,7 @@ export default function CartScreen() {
                   resizeMode="cover"
                 />
               </Pressable>
-
-              {/* Product Info */}
+              
               <View className="flex-1 p-3">
                 <View className="flex-row items-start justify-between mb-2">
                   <Pressable
@@ -142,8 +136,7 @@ export default function CartScreen() {
                       {item.product.category}
                     </Text>
                   </Pressable>
-
-                  {/* Remove Button */}
+                  
                   <TouchableOpacity
                     onPress={() => removeFromCart(item.product.id)}
                     className="p-1"
@@ -152,8 +145,7 @@ export default function CartScreen() {
                     <Ionicons name="trash-outline" size={20} color="#DC2626" />
                   </TouchableOpacity>
                 </View>
-
-                {/* Price */}
+                
                 <Text className="text-dark font-bold text-base mb-2">
                   ${discountedPrice.toFixed(2)}
                   {item.product.discountPercentage > 0 && (
@@ -162,8 +154,7 @@ export default function CartScreen() {
                     </Text>
                   )}
                 </Text>
-
-                {/* Quantity Controls */}
+                
                 <View className="flex-row items-center justify-between">
                   <View className="flex-row items-center border border-gray-300 rounded-lg">
                     <TouchableOpacity
@@ -200,8 +191,7 @@ export default function CartScreen() {
           );
         }}
       />
-
-      {/* Checkout Footer */}
+      
       <View className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
         <View className="flex-row justify-between items-center mb-3">
           <Text className="text-gray-600 text-base">Subtotal</Text>

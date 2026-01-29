@@ -71,8 +71,6 @@ export default function CategoriesScreen({ navigation }: any) {
             )}
           />
 
-
-          {/* All Categories */}
           <View className="mt-8">
             {CATEGORIES.map(
               (cat) =>
