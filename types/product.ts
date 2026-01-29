@@ -19,7 +19,7 @@ export interface Product {
   brand?: string;
   tags?: string[];
   availabilityStatus?: string;
-  stock?: number; // number, not string
+  stock?: number; 
   reviews?: Review[]; 
   shippingInformation?: string;
   warrantyInformation?: string;

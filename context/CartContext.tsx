@@ -30,7 +30,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load cart from AsyncStorage on mount or when user changes
   useEffect(() => {
   (async () => {
     if (!user) {
