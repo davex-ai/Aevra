@@ -1,7 +1,11 @@
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { useCart } from '@/context/CartContext';
 
 export default function TabLayout() {
+    const { getCartCount } = useCart();
+  const cartCount = getCartCount();
+
   return (
     <Tabs
       screenOptions={{
@@ -53,24 +57,29 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="wishlist"
+        name="cart"
         options={{
-          title: 'Wishlist',
+          title: 'Cart',
+          tabBarBadge: cartCount > 0 ? cartCount : undefined,
+          tabBarBadgeStyle: {
+            backgroundColor: '#1E1E1E',
+            color: 'white',
+            fontSize: 10,
+            fontWeight: 'bold',
+            minWidth: 18,
+            height: 18,
+            borderRadius: 9,
+            marginTop: 2,
+          },
           tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons name={focused ? 'heart' : 'heart-outline'} size={size} color={color} />
+            <Ionicons 
+              name={focused ? 'cart' : 'cart-outline'} 
+              size={size} 
+              color={color} 
+            />
           ),
         }}
-      />
-
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons name={focused ? 'person' : 'person-outline'} size={size} color={color} />
-          ),
-        }}
-      />
+      /> 
     </Tabs>
   );
 }

@@ -1,4 +1,3 @@
-// app/categories/[category].tsx
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Text, View } from "react-native";

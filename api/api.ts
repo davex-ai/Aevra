@@ -33,7 +33,7 @@ export const getProducts = (limit = 20, skip = 0) =>
 
 export const getProduct = (id: number) =>
   fetchData<Product>(`/products/${id}`);
-// api/api.ts
+
 export async function searchProducts({
   q,
   sortBy,
@@ -45,7 +45,7 @@ export async function searchProducts({
   q: string;
   sortBy?: string;
   order?: 'asc' | 'desc';
-  select?: string[]; // array of field names
+  select?: string[]; 
   limit?: number;
   skip?: number;
 }) {
