@@ -52,7 +52,7 @@ export default function TabLayout() {
         }}
       />
 
-      {/* <Tabs.Screen
+      <Tabs.Screen
         name="wishlist"
         options={{
           title: 'Wishlist',
@@ -70,7 +70,7 @@ export default function TabLayout() {
             <Ionicons name={focused ? 'person' : 'person-outline'} size={size} color={color} />
           ),
         }}
-      /> */}
+      />
     </Tabs>
   );
 }
