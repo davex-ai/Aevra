@@ -151,6 +151,13 @@ EXPO_PUBLIC_FIREBASE_PROJECT_ID=...
 ```bash
 npx expo start
 ```
+## Preview
+<p align="center"> 
+<img width="200" height="400" alt="Screenshot_1776856619" src="https://github.com/user-attachments/assets/4e67120c-8279-40f6-8fd0-093e1e7b33f0" />
+   &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+
+<img width="200" height="400" alt="Screenshot_1776856628" src="https://github.com/user-attachments/assets/049bb84f-31b0-45f4-8304-4d2ae9d10062" />
+</p>
 
 ---
 
